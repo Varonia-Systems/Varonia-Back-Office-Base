@@ -1,0 +1,19 @@
+{
+    "name": "VboBase.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Vbo.GameClass.Runtime",
+        "VboBase.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

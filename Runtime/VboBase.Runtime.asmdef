@@ -1,0 +1,20 @@
+{
+    "name": "VboBase.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "NaughtyAttributes.Core",
+        "NaughtyAttributes.Editor",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Vbo.GameClass.Runtime",
+        "VboCore"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
