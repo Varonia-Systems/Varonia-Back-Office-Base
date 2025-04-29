@@ -21,11 +21,11 @@ namespace VaroniaBackOffice
 
         public static Type WindowType = typeof(VaroniaInfoUI);
 
-        [MenuItem("Varonia/Project Settings")]
-        public static void ShowWindow()
-        {
-            EditorWindow.GetWindow(WindowType, false, "Project Settings");
-        }
+        ////  [MenuItem("Varonia/Project Settings")]
+        //  public static void ShowWindow()
+        //  {
+        //      EditorWindow.GetWindow(WindowType, false, "Project Settings");
+        //  }
 
         void OnInspectorUpdate()
         {
@@ -38,6 +38,10 @@ namespace VaroniaBackOffice
         {
             var data = EditorPrefs.GetString(Application.productName + "config", JsonUtility.ToJson(this, false));
             JsonUtility.FromJsonOverwrite(data, this);
+
+
+            if (!Directory.Exists(Application.streamingAssetsPath))
+                Directory.CreateDirectory(Application.streamingAssetsPath);
 
             if (!File.Exists(Application.streamingAssetsPath + "/GameID.txt"))
             {
@@ -64,7 +68,7 @@ namespace VaroniaBackOffice
         }
 
 
-     public virtual void OnGUI()
+        public virtual void OnGUI()
         {
 
 
@@ -88,7 +92,7 @@ namespace VaroniaBackOffice
         }
 
 
-      public void Save()
+        public void Save()
         {
 
             if (!Directory.Exists(Application.streamingAssetsPath))
