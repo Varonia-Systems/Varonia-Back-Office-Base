@@ -23,14 +23,14 @@ namespace VaroniaBackOffice
         {
             logo = AssetDatabase.LoadAssetAtPath<Texture2D>(GetResourcePath() + "BackOfficeLogo.png");
 
-            if (!Application.isPlaying)
-            {
-                using (StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/VBO_Version.txt", false))
-                {
-                    var V = About_UI.GetVersion();
-                    sw.Write(V.Date + " " + V.VersionNumber);
-                }
-            }
+            //if (!Application.isPlaying)
+            //{
+            //    using (StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/VBO_Version.txt", false))
+            //    {
+            //        var V = About_UI.GetVersion();
+            //        sw.Write(V.Date + " " + V.VersionNumber);
+            //    }
+            //}
         }
 
 
