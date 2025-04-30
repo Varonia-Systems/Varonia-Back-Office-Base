@@ -26,11 +26,15 @@ namespace VaroniaBackOffice
             DontDestroyOnLoad(gameObject.transform.parent);
             instance = this;
             brokerAddress = Config.VaroniaConfig.MQTT_ServerIP;
+
+
             if (!String.IsNullOrEmpty(Config.VaroniaConfig.MQTT_ServerIP))
             {
                 base.Start();
                 StartCoroutine(Check_Connection());
             }
+            else
+                client = new MqttClient(brokerAddress, brokerPort, isEncrypted, null, null, isEncrypted ? MqttSslProtocols.SSLv3 : MqttSslProtocols.None);
         }
 
 
