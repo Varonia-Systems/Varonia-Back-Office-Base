@@ -33,37 +33,9 @@ namespace VaroniaBackOffice
         }
 
 
-
-        protected void OnEnable()
-        {
-            var data = EditorPrefs.GetString(Application.productName + "config", JsonUtility.ToJson(this, false));
-            JsonUtility.FromJsonOverwrite(data, this);
-
-
-            if (!Directory.Exists(Application.streamingAssetsPath))
-                Directory.CreateDirectory(Application.streamingAssetsPath);
-
-            if (!File.Exists(Application.streamingAssetsPath + "/GameID.txt"))
-            {
-                using (StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/GameID.txt"))
-                {
-                    sw.Write("9999");
-                    GameId = "9999";
-                }
-            }
-            else
-            {
-                using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/GameID.txt"))
-                {
-                    GameId = sr.ReadToEnd();
-                }
-            }
-        }
-
-
         protected void OnDisable()
         {
-            Save();
+     
 
         }
 
@@ -72,48 +44,11 @@ namespace VaroniaBackOffice
         {
 
 
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = Color.white;
-            style.richText = true;
-            GUILayout.BeginHorizontal("box");
-            GUILayout.FlexibleSpace();
-            GUILayout.Label("<color=red><b>~~ Project Settings ~~</b></color>", style);
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
-
-            GUILayout.Label("GameId : ");
-            GameId = GUILayout.TextField(GameId);
-
-            GUILayout.Space(25);
-            if (GUILayout.Button("SAVE"))
-            {
-                Save();
-            }
+    
         }
 
 
-        public void Save()
-        {
-
-            if (!Directory.Exists(Application.streamingAssetsPath))
-                Directory.CreateDirectory(Application.streamingAssetsPath);
-
-            try
-            {
-
-                using (StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/GameID.txt"))
-                {
-                    sw.Write(GameId);
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
-            var data = JsonUtility.ToJson(this, false);
-            EditorPrefs.SetString(Application.productName + "config", data);
-        }
+  
 
     }
 

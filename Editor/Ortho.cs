@@ -57,47 +57,58 @@ namespace VaroniaBackOffice
 
         void OnGUI()
         {
-                if (CaptureCamera == null)
+            if (CaptureCamera == null)
+            {
+                if (GUILayout.Button("Create Camera"))
                 {
-                    if (GUILayout.Button("Create Camera"))
-                    {
-                        CaptureCamera = new GameObject("(TEMP) Ortho Camera").AddComponent<Camera>();
-                        CaptureCamera.orthographic = true;
-                        CaptureCamera.transform.eulerAngles = new Vector3(90, 0, -90);
-                    }
+                    CaptureCamera = new GameObject("(TEMP) Ortho Camera").AddComponent<Camera>();
+                    CaptureCamera.orthographic = true;
+                    CaptureCamera.transform.eulerAngles = new Vector3(90, 0, -90);
                 }
-                else
+            }
+            else
+            {
+                CaptureCamera.orthographicSize = EditorGUILayout.IntField("Orthographic Size", (int)CaptureCamera.orthographicSize);
+                CaptureCamera.transform.position = new Vector3(0, EditorGUILayout.FloatField("Height", CaptureCamera.transform.position.y), 0);
+                GameMode = EditorGUILayout.IntField("GameMode", GameMode);
+
+                if (GUILayout.Button("Capture Screenshot", GUILayout.MinHeight(40)))
                 {
-                    CaptureCamera.orthographicSize = EditorGUILayout.IntField("Orthographic Size", (int)CaptureCamera.orthographicSize);
-                    CaptureCamera.transform.position = new Vector3(0, EditorGUILayout.FloatField("Height", CaptureCamera.transform.position.y), 0);
-                    GameMode = EditorGUILayout.IntField("GameMode", GameMode);
 
-                    if (GUILayout.Button("Capture Screenshot", GUILayout.MinHeight(40)))
+
+#if VBO_AutoBuild
+
+                    string GameId = "999";
+                    string Ortho = EditorPrefs.GetString("VBO_OrthoSourcePath");
+
+                    using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/GameID.txt"))
                     {
-
-                        VaroniaInfoUI ui = new VaroniaInfoUI();
-                        var data = EditorPrefs.GetString(Application.productName + "config", " ");
-                        JsonUtility.FromJsonOverwrite(data, ui);
-
-                        CapturePath =   "/" + ui.GameId + "/" + GameMode;
-
-                        if (!Directory.Exists("/" + ui.GameId + "/" + GameMode))
-                            Directory.CreateDirectory( "/" + ui.GameId);
-
-                        if (!Directory.Exists( "/" + ui.GameId + "/" + GameMode))
-                            Directory.CreateDirectory( "/" + ui.GameId + "/" + GameMode);
-
-                        Capture();
+                        GameId = sr.ReadToEnd();
                     }
 
-                    EditorGUILayout.Space();
 
-                    if (GUILayout.Button("Delete Camera"))
-                    {
-                        DestroyImmediate(CaptureCamera.gameObject);
+                    CapturePath = Ortho + "/" + GameId + "/" + GameMode;
 
-                    }
+                    if (!Directory.Exists(Ortho + "/" + GameId + "/" + GameMode))
+                        Directory.CreateDirectory(Ortho + "/" + GameId);
+#endif
+
+#if !VBO_AutoBuild
+                   CapturePath = Application.dataPath + "/Ortho"; 
+                    if (!Directory.Exists(CapturePath))
+                        Directory.CreateDirectory(CapturePath);    
+#endif
+                    Capture();
                 }
+
+                EditorGUILayout.Space();
+
+                if (GUILayout.Button("Delete Camera"))
+                {
+                    DestroyImmediate(CaptureCamera.gameObject);
+
+                }
+            }
         }
 
         public void Capture()

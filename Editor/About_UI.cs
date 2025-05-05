@@ -5,6 +5,44 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using UnityEditor.Build.Reporting;
+using UnityEditor.Build;
+
+class BuildProcessor_VBO : IPreprocessBuildWithReport
+{
+    public int callbackOrder { get { return 0; } }
+    public void OnPreprocessBuild(BuildReport report)
+    {
+        ListRequest listRequest;
+        Debug.Log("Build Begin...");
+
+        listRequest = Client.List();
+
+        string V_ = "null", D_ = "null";
+
+        while (!listRequest.IsCompleted)
+        { }
+
+
+        foreach (var package in listRequest.Result)
+        {
+            if (package.name.StartsWith("com.varonia"))
+            {
+                if (package.name == "com.varonia.vbobase")
+                {
+                    V_ = package.version;
+                    D_ = System.IO.File.GetLastWriteTime(package.resolvedPath + "/package.json").ToString("dd/MM/yyyy");
+                }
+            }
+        }
+
+        using (StreamWriter sw = new StreamWriter(Application.streamingAssetsPath + "/VBO_Version.txt", false))
+        {
+            sw.Write(V_ + " " + D_);
+        }
+
+    }
+}
 
 public class VaroniaAboutWindow : EditorWindow
 {
@@ -107,5 +145,7 @@ public class VaroniaAboutWindow : EditorWindow
         path = Path.GetDirectoryName(path);
         return path.Substring(0, path.Length - "Editor".Length) + "";
     }
+
+
 
 }
