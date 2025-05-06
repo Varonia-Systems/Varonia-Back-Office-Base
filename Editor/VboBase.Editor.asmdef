@@ -2,7 +2,8 @@
     "name": "VboBase.Editor",
     "rootNamespace": "",
     "references": [
-        "VboBase.Runtime"
+        "VboBase.Runtime",
+        "Vbo.GameClass.Runtime"
     ],
     "includePlatforms": [
         "Editor"

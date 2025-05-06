@@ -5,8 +5,7 @@
         "NaughtyAttributes.Core",
         "NaughtyAttributes.Editor",
         "Unity.RenderPipelines.Universal.Runtime",
-        "Vbo.GameClass.Runtime",
-        "VboCore"
+        "Vbo.GameClass.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

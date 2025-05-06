@@ -84,7 +84,7 @@ public class VaroniaAboutWindow : EditorWindow
                         }
                         else
                         {
-                            varoniaPackages.Add(package); // uniquement les add-ons
+                            varoniaPackages.Add(package); // uniquement les add-ons //
                         }
                     }
                 }
@@ -135,7 +135,6 @@ public class VaroniaAboutWindow : EditorWindow
         GUILayout.FlexibleSpace();
         GUILayout.Label("Varonia Systems © 2025", EditorStyles.centeredGreyMiniLabel);
     }
-
 
 
     string GetResourcePath()

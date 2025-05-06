@@ -64,6 +64,8 @@ namespace VaroniaBackOffice
         Texture2D iconTrigger;
 
 
+        private string description = "";
+
 
         void OnEnable()
         {
@@ -121,6 +123,9 @@ namespace VaroniaBackOffice
             else if (previewTexture != null)
             {
                 Preview();
+
+
+                description = EditorGUILayout.TextField("📝 Description", description);
 
                 ClearDrawing();
 
@@ -672,6 +677,11 @@ namespace VaroniaBackOffice
                     Debug.Log("✅ Drawing saved as JPG : " + jpgPath);
 
 
+                    string jsonPath = Path.ChangeExtension(jpgPath, "json");
+                    var jsonData = new Dictionary<string, string> { { "description", description } };
+                    File.WriteAllText(jsonPath, JsonUtility.ToJson(new SerializableDescription(description), true));
+
+
 
                     // Nettoyage
                     CaptureLast = jpgPath;
@@ -689,6 +699,13 @@ namespace VaroniaBackOffice
         }
 
 
+
+        [Serializable]
+        public class SerializableDescription
+        {
+            public string description;
+            public SerializableDescription(string desc) { description = desc; }
+        }
 
         private void DrawPoint(Texture2D tex, Vector2 uv, ActionPointType type)
         {

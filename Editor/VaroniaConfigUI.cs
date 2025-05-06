@@ -103,7 +103,12 @@ namespace VaroniaBackOffice
 
             GUILayout.BeginHorizontal("box");
             GUILayout.BeginVertical("box");
-            GUILayout.Label("<color=red><b>~~ GlobalConfig ~~</b></color>", style); // GLOBALCONFIG
+
+         
+
+            GUILayout.Label("⚙️<b> GlobalConfig </b>", style);
+
+
             GUILayout.Space(28);
 
 
@@ -154,7 +159,7 @@ namespace VaroniaBackOffice
             // GUILayout.BeginHorizontal("box");
             GUILayout.BeginVertical("box");
 #if Game_Config
-            GUILayout.Label("<color=red><b>~~ Config ~~</b></color>", style); //CONFIG
+            GUILayout.Label("⚙️ <b> Config </b>", style); //CONFIG
             GUILayout.Space(28);
             int index_2 = 0;
 
@@ -199,7 +204,18 @@ namespace VaroniaBackOffice
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
             GUILayout.Space(12);
-            if (GUILayout.Button("Save", GUILayout.MinHeight(60)))
+
+
+            GUIStyle sexyButtonStyle = new GUIStyle(GUI.skin.button);
+            sexyButtonStyle.fontSize = 18;
+            sexyButtonStyle.fontStyle = FontStyle.Bold;
+            sexyButtonStyle.normal.textColor = Color.white;
+            sexyButtonStyle.normal.background = MakeTex(2, 2, new Color(0.2f, 0.6f, 1f)); // Bleu clair
+            sexyButtonStyle.hover.background = MakeTex(2, 2, new Color(0.3f, 0.7f, 1f));  // Survol
+
+
+
+            if (GUILayout.Button("💾 Save", sexyButtonStyle, GUILayout.MinHeight(60)))
             {
                 using (StreamWriter sw = new StreamWriter(Application.persistentDataPath.Replace(Application.companyName + "/" + Application.productName, "varonia") + "/GlobalConfig.json"))
                 {
@@ -227,72 +243,68 @@ namespace VaroniaBackOffice
 
         void TOOGLE(FieldInfo field)
         {
-            try
+            var prop = VC.GetType().GetField(field.Name);
+            if (prop != null && prop.FieldType == typeof(bool))
             {
-                var prop = VC.GetType().GetField(field.Name);
-            prop.SetValue(VC, GUILayout.Toggle((bool)prop.GetValue(VC), ""));
-            }
-            catch (Exception)
-            {
-
-
+                bool currentValue = (bool?)prop.GetValue(VC) ?? false;
+                bool newValue = GUILayout.Toggle(currentValue, "");
+                prop.SetValue(VC, newValue);
             }
         }
 
         void TOOGLE_2(FieldInfo field)
         {
-            try
+            var prop = C.GetType().GetField(field.Name);
+            if (prop != null && prop.FieldType == typeof(bool))
             {
-                var prop = C.GetType().GetField(field.Name);
-            prop.SetValue(C, GUILayout.Toggle((bool)prop.GetValue(C), ""));
-            }
-            catch (Exception)
-            {
-
-
+                bool currentValue = (bool?)prop.GetValue(C) ?? false;
+                bool newValue = GUILayout.Toggle(currentValue, "");
+                prop.SetValue(C, newValue);
             }
         }
 
 
         void TXT(FieldInfo field)
         {
-            try
+            string T = GUILayout.TextField(field.GetValue(VC)?.ToString() ?? "");
+
+            if (field.FieldType == typeof(string))
             {
-                string T = GUILayout.TextField(field.GetValue(VC).ToString());
-                if (field.FieldType.ToString().Contains("String"))
-                    field.SetValue(VC, T);
-                if (field.FieldType.ToString().Contains("Int"))
-                    field.SetValue(VC, int.Parse(T));
-                if (field.FieldType.ToString().Contains("float"))
-                    field.SetValue(VC, float.Parse(T));
-                if (field.FieldType.ToString().Contains("Single"))
-                    field.SetValue(VC, Single.Parse(T));
+                field.SetValue(VC, T);
             }
-            catch (Exception)
+            else if (field.FieldType == typeof(int) && int.TryParse(T, out int intValue))
             {
-
-
+                field.SetValue(VC, intValue);
+            }
+            else if (field.FieldType == typeof(float) && float.TryParse(T, out float floatValue))
+            {
+                field.SetValue(VC, floatValue);
+            }
+            else if (field.FieldType == typeof(Single) && Single.TryParse(T, out float singleValue))
+            {
+                field.SetValue(VC, singleValue);
             }
         }
 
         void TXT_2(FieldInfo field)
         {
-            try
+            string T = GUILayout.TextField(field.GetValue(C)?.ToString() ?? "");
+
+            if (field.FieldType == typeof(string))
             {
-                string T = GUILayout.TextField(field.GetValue(C).ToString());
-            if (field.FieldType.ToString().Contains("String"))
                 field.SetValue(C, T);
-            if (field.FieldType.ToString().Contains("Int"))
-                field.SetValue(C, int.Parse(T));
-            if (field.FieldType.ToString().Contains("float"))
-                field.SetValue(C, float.Parse(T));
-            if (field.FieldType.ToString().Contains("Single"))
-                field.SetValue(C, Single.Parse(T));
             }
-            catch (Exception)
+            else if (field.FieldType == typeof(int) && int.TryParse(T, out int intValue))
             {
-
-
+                field.SetValue(C, intValue);
+            }
+            else if (field.FieldType == typeof(float) && float.TryParse(T, out float floatValue))
+            {
+                field.SetValue(C, floatValue);
+            }
+            else if (field.FieldType == typeof(Single) && Single.TryParse(T, out float singleValue))
+            {
+                field.SetValue(C, singleValue);
             }
         }
 
@@ -362,6 +374,18 @@ namespace VaroniaBackOffice
                 jsonWriter.WriteToken(jsonReader);
                 return stringWriter.ToString();
             }
+        }
+
+
+        Texture2D MakeTex(int width, int height, Color col)
+        {
+            Color[] pix = new Color[width * height];
+            for (int i = 0; i < pix.Length; ++i)
+                pix[i] = col;
+            Texture2D result = new Texture2D(width, height);
+            result.SetPixels(pix);
+            result.Apply();
+            return result;
         }
     }
 }
