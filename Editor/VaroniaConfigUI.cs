@@ -94,7 +94,7 @@ namespace VaroniaBackOffice
         public Vector2 scrollPosition = Vector2.zero;
         void OnGUI()
         {
-            var A = GetWindow<VaroniaConfigUI>().position;
+            var A = position;
             scrollPosition = GUI.BeginScrollView(new Rect(0, 0, A.width, A.height), scrollPosition, new Rect(0, 0, 500, 1800));
 
             GUIStyle style = new GUIStyle();
