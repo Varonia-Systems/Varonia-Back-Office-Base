@@ -39,8 +39,7 @@ namespace VaroniaBackOffice
         [HideInInspector]
         public Camera MainCamera;
 
-        [HideInInspector]
-        public Transform OtherOffset;
+    
         [HideInInspector]
         public Transform Rig;
 
@@ -204,7 +203,7 @@ namespace VaroniaBackOffice
                             Rig = A.transform;
                     }
 
-                    OtherOffset = Rig.GetChild(0);
+                  
                 }
             }
         }
