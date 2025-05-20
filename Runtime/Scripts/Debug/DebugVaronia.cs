@@ -53,7 +53,8 @@ namespace VaroniaBackOffice
 
         private bool Has_Boundary_Info;
 
-        bool AdvDebugMove;
+        [HideInInspector]
+       public bool AdvDebugMove;
 
 
 
@@ -333,6 +334,10 @@ namespace VaroniaBackOffice
 
             if (!init) return;
 
+
+            KeyboardHook.Update();
+
+
             // Show or Hide Lite Debug Mod
             if (!Config.VaroniaConfig.HideLightDebug)
                 LightDebugCanvas.SetActive(true);
@@ -347,20 +352,20 @@ namespace VaroniaBackOffice
                 PanelDebugInfo.SetActive(false);
 
 
-            if (Input.GetKeyDown(KeyCode.M)) // Minimize Game 
+            if (KeyboardHook.GetKeyDown(KeyCode.M)) // Minimize Game 
             {
                 OnMinimizeButtonClick();
             }
 
 
-            if (Input.GetKeyDown(KeyCode.F1)) // Show advence Debug Mod
-                ShowDebug();
+            if (KeyboardHook.GetKeyDown(KeyCode.F1)) // Show advence Debug Mod
+               ShowDebug();
 
-            if (Input.GetKeyDown(KeyCode.F7))
+            if (KeyboardHook.GetKeyDown(KeyCode.F7))
                 Show3DDebug();
 
 
-            if (Input.GetKeyDown(KeyCode.F12))
+            if (KeyboardHook.GetKeyDown(KeyCode.F12))
                 AdvDebugMove = !AdvDebugMove;
 
 
@@ -369,36 +374,36 @@ namespace VaroniaBackOffice
 
                 int AddMul = 0;
 
-                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                if (KeyboardHook.GetKey(KeyCode.LeftShift) || KeyboardHook.GetKey(KeyCode.RightShift))
                     AddMul += 4;
 
 
-                if (!Input.GetKey(KeyCode.RightAlt))
+                if (!KeyboardHook.GetKey(KeyCode.RightAlt))
                 {
-                    if (Input.GetKey(KeyCode.UpArrow))
+                    if (KeyboardHook.GetKey(KeyCode.UpArrow))
                         VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (Input.GetKey(KeyCode.DownArrow))
+                    if (KeyboardHook.GetKey(KeyCode.DownArrow))
                         VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (Input.GetKey(KeyCode.LeftArrow))
+                    if (KeyboardHook.GetKey(KeyCode.LeftArrow))
                         VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (Input.GetKey(KeyCode.RightArrow))
+                    if (KeyboardHook.GetKey(KeyCode.RightArrow))
                         VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
                 }
                 else
                 {
-                    if (Input.GetKey(KeyCode.UpArrow))
+                    if (KeyboardHook.GetKey(KeyCode.UpArrow))
                         VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (Input.GetKey(KeyCode.DownArrow))
+                    if (KeyboardHook.GetKey(KeyCode.DownArrow))
                         VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (Input.GetKey(KeyCode.LeftArrow))
+                    if (KeyboardHook.GetKey(KeyCode.LeftArrow))
                         VaroniaGlobal.VG.Rig.localEulerAngles -= (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
 
-                    if (Input.GetKey(KeyCode.RightArrow))
+                    if (KeyboardHook.GetKey(KeyCode.RightArrow))
                         VaroniaGlobal.VG.Rig.localEulerAngles += (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
                 }
             }
@@ -416,14 +421,14 @@ namespace VaroniaBackOffice
 
             InputChangeScene();
 
-            if (Input.GetKeyDown(KeyCode.F2)) // Force Start Game Whith Tuto (if have)
+            if (KeyboardHook.GetKeyDown(KeyCode.F2)) // Force Start Game Whith Tuto (if have)
             {
                 VaroniaGlobal.StartGame = true;
                 VaroniaGlobal.VG.OnStartGame.Invoke();
             }
 
 
-            if (Input.GetKeyDown(KeyCode.F3)) // Force Start Game Whithout Tuto
+            if (KeyboardHook.GetKeyDown(KeyCode.F3)) // Force Start Game Whithout Tuto
             {
                 VaroniaGlobal.SkipTuto = true;
                 VaroniaGlobal.StartGame = true;
@@ -431,20 +436,20 @@ namespace VaroniaBackOffice
             }
 
 
-            if (Input.GetKeyDown(KeyCode.F8)) // Active/Disable Movie Mod
+            if (KeyboardHook.GetKeyDown(KeyCode.F8)) // Active/Disable Movie Mod
             {
                 Config.VaroniaConfig.Movie = !Config.VaroniaConfig.Movie;
 
             }
 
 
-            if (Input.GetKeyDown(KeyCode.KeypadPlus)) // add Time.scale
+            if (KeyboardHook.GetKeyDown(KeyCode.KeypadPlus)) // add Time.scale
             {
                 Time.timeScale += 0.1f;
 
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadMinus)) // less Time.scale
+            if (KeyboardHook.GetKeyDown(KeyCode.KeypadMinus)) // less Time.scale
             {
                 if (Time.timeScale - 0.1 < 0)
                     Time.timeScale = 0f;
@@ -453,7 +458,7 @@ namespace VaroniaBackOffice
 
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter)) // Reset Time.scale
+            if (KeyboardHook.GetKeyDown(KeyCode.KeypadEnter)) // Reset Time.scale
             {
                 Time.timeScale = 1f;
 
