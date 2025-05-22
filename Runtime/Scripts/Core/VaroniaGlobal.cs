@@ -76,23 +76,6 @@ namespace VaroniaBackOffice
 
 
 
-#if VBO_Input
-
-        [HideInInspector]
-        public bool HasWeaponTracking;
-        [HideInInspector]
-        public bool LostWeaponTrackingLongTime;
-
-
-        public UnityEvent OnWeaponHasTracking = new UnityEvent();
-        public UnityEvent OnWeaponLostTracking = new UnityEvent();
-        public UnityEvent OnWeaponLostTrackingLongTime = new UnityEvent();
-        public UnityEvent OnWeaponFail = new UnityEvent();
-        public UnityEvent OnWeaponOk = new UnityEvent();
-#endif
-
-
-
         [HideInInspector]
         public string VBO_Version = "";
 
@@ -229,7 +212,6 @@ namespace VaroniaBackOffice
         {
             Application.OpenURL("https://www.notion.so/varoniasystems/0cd3a1d12d2f4eaaac494bcbaef78381?v=fed1c39ac39741ef9b23e51b42d1510f");
         }
-
 
     }
 
