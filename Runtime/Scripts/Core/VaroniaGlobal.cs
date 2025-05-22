@@ -50,7 +50,7 @@ namespace VaroniaBackOffice
 
         Timegame Timegame_;
 
-
+        //
 
 
         public UnityEvent OnInitialized = new UnityEvent();
