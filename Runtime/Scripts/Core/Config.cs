@@ -52,6 +52,9 @@ namespace VaroniaBackOffice
         {
             InitGlobalconfig();
             InitGameConfig();
+
+
+
             if (InitSpatialAwake) InitSpatial();
 
             Initialized.Invoke(); // Triggers the event once everything is loaded
@@ -180,6 +183,12 @@ namespace VaroniaBackOffice
         }
         public void InitSpatial()
         {
+
+#if VBO_VORTEX
+    if(VaroniaConfig.UseVortexBackOffice)
+    return;
+#endif
+
             try
             {
                 using (StreamReader sr = new StreamReader(VaroniaFolder_Path + "/NewSpatial.json"))
