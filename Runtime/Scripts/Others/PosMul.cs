@@ -19,8 +19,10 @@ namespace VaroniaBackOffice
         {
             yield return new WaitUntil(() => Config.VaroniaConfig != null);
 
-            CoefMul = (float)Config.Spatial.Multiplier;
-
+            if (Config.Spatial != null)
+                CoefMul = (float)Config.Spatial.Multiplier;
+            else
+                CoefMul = 0.0f;
 
 
 
