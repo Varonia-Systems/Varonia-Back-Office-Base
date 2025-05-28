@@ -67,6 +67,7 @@ namespace VaroniaBackOffice
         public float GlobalVolume = 1; //Controls the game's global volume
         public Controller Controller; //Defines the type of controller the user has in the game.
         public bool HideLightDebug; //Small debug overlay — it is "true" by default.
+        public EventType ForcedEvent;
     }
 
 
