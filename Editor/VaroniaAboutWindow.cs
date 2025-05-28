@@ -46,7 +46,7 @@ class BuildProcessor_VBO : IPreprocessBuildWithReport
 
 public class VaroniaAboutWindow : EditorWindow
 {
-    private List<UnityEditor.PackageManager.PackageInfo> varoniaPackages = new();
+    private List<UnityEditor.PackageManager.PackageInfo> varoniaPackages = new List<UnityEditor.PackageManager.PackageInfo> ();
     private ListRequest listRequest;
     private string version = "inconnue";
     private string versionDate = "inconnue";
