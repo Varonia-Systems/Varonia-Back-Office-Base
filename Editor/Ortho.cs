@@ -51,10 +51,10 @@ namespace VaroniaBackOffice
         private int circleRadius = 60;
 
         private enum ActionPointType { Spawn, Checkpoint, Danger, Trigger }
-        private readonly Dictionary<ActionPointType, Texture2D> iconContents = new();
+        private readonly Dictionary<ActionPointType, Texture2D> iconContents = new Dictionary<ActionPointType, Texture2D>();
 
 
-        private List<(Vector2 uv, ActionPointType type)> actionPoints = new();
+        private List<(Vector2 uv, ActionPointType type)> actionPoints = new List<(Vector2 uv, ActionPointType type)>();
         private ActionPointType currentActionPointType = ActionPointType.Spawn;
 
 
@@ -654,9 +654,9 @@ namespace VaroniaBackOffice
 #endif
 
 #if !VBO_AutoBuild
-                   CapturePath = Application.dataPath + "/Ortho"; 
-                    if (!Directory.Exists(CapturePath))
-                        Directory.CreateDirectory(CapturePath);    
+            CapturePath = Application.dataPath + "/Ortho";
+            if (!Directory.Exists(CapturePath))
+                Directory.CreateDirectory(CapturePath);
 #endif
         }
 
@@ -712,14 +712,20 @@ namespace VaroniaBackOffice
             int x = (int)uv.x;
             int y = (int)uv.y;
             int radius = circleRadius;
-            Color color = type switch
+
+
+            Color color;
+            switch (type)
             {
-                ActionPointType.Spawn => Color.green,
-                ActionPointType.Checkpoint => Color.cyan,
-                ActionPointType.Danger => Color.red,
-                ActionPointType.Trigger => Color.yellow,
-                _ => Color.white
-            };
+                case ActionPointType.Spawn: color = Color.green; break;
+                case ActionPointType.Checkpoint: color = Color.cyan; break;
+                case ActionPointType.Danger: color = Color.red; break;
+                case ActionPointType.Trigger: color = Color.yellow; break;
+                default: color = Color.white; break;
+            }
+
+
+
 
             for (int dy = -radius; dy <= radius; dy++)
             {
