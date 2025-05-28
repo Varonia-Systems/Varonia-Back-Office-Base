@@ -77,7 +77,7 @@ namespace M2MqttUnity
 
 
 
-        public UnityEvent<string, byte[]> ReceiveMsg = new UnityEvent<string,byte[]>();
+        public event Action<string, byte[]> ReceiveMsg;
 
 
         /// <summary>
