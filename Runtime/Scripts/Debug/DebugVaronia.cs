@@ -352,6 +352,9 @@ namespace VaroniaBackOffice
                 PanelDebugInfo.SetActive(false);
 
 
+            try
+            {
+
             if (KeyboardHook.GetKeyDown(KeyCode.M)) // Minimize Game 
             {
                 OnMinimizeButtonClick();
@@ -407,7 +410,12 @@ namespace VaroniaBackOffice
                         VaroniaGlobal.VG.Rig.localEulerAngles += (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
                 }
             }
+            }
+            catch (Exception)
+            {
 
+              
+            }
 
             DebugInfoUpdate();
 

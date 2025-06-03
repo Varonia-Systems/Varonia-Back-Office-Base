@@ -30,6 +30,7 @@ namespace VaroniaBackOffice
 
     public enum Controller
     {
+        Unknown = -1,
         FOCUS3_VBS_CTRL = 4, //  Focus 3 Vive Business Streaming (VBS) controllers
         HandTracking = 5,  // OpenVR Skeleton
         PICO_VSVR_CTRL = 6, //  Pico Varonia Streamer Virtual Reality (VSVR) controllers

@@ -168,7 +168,7 @@ namespace VaroniaBackOffice
 
         IEnumerator CheckCam()
         {
-            while (MainCamera == null)
+            while (MainCamera == null || Rig == null)
             {
                 yield return new WaitForFixedUpdate();
                 MainCamera = Camera.main;
@@ -177,7 +177,7 @@ namespace VaroniaBackOffice
                     if (string.IsNullOrEmpty(RigTag))
                     {
                         Rig = MainCamera.transform.root;
-                    }
+                    }                 
                     else
                     {
                         var A = GameObject.FindGameObjectWithTag(RigTag);

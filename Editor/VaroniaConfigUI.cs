@@ -53,7 +53,7 @@ namespace VaroniaBackOffice
             {
                 using (StreamReader sr = new StreamReader(Application.persistentDataPath.Replace(Application.companyName + "/" + Application.productName, "varonia") + "/GlobalConfig.json"))
                 {
-                    VC = JsonConvert.DeserializeObject<VaroniaConfig>(sr.ReadToEnd());
+                   VC = JsonConvert.DeserializeObject<VaroniaConfig>(sr.ReadToEnd(), JsonMerger.SafeSettings);
                 }
             }
             else
@@ -143,20 +143,10 @@ namespace VaroniaBackOffice
 
 
 
-            //if (GUILayout.Button("Save GlobalConfig", EditorStyles.miniButton))
-            //{
-            //    using (StreamWriter sw = new StreamWriter(Application.persistentDataPath.Replace("/" + Application.productName, "") + "/GlobalConfig.json"))
-            //    {
-
-            //        sw.Write(JsonPrettify(JsonConvert.SerializeObject(VC)));
-
-            //    }
-            //}
             GUILayout.EndVertical();
-            //GUILayout.EndHorizontal();
+     
 
-
-            // GUILayout.BeginHorizontal("box");
+          
             GUILayout.BeginVertical("box");
 #if Game_Config
             GUILayout.Label("⚙️ <b> Config </b>", style); //CONFIG
@@ -187,18 +177,6 @@ namespace VaroniaBackOffice
 
             }
 #endif
-
-
-            //if (GUILayout.Button("Save Config", EditorStyles.miniButton))
-            //{
-            //    using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/Config.json"))
-            //    {
-
-            //        sw.Write(JsonPrettify(JsonConvert.SerializeObject(C)));
-
-            //    }
-            //}
-
 
 
             GUILayout.EndVertical();
