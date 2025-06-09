@@ -77,7 +77,13 @@ namespace VaroniaBackOffice
                 _localInputSystemEventSystem = gameObject.AddComponent<InputSystemUIInputModule>();
                 #endif
             }
-            else if(_localEventSystems) {  Destroy(_localInputSystemEventSystem); Destroy(_localEventSystems);  }
+            else if (_localEventSystems)
+            {
+#if ENABLE_INPUT_SYSTEM
+                Destroy(_localInputSystemEventSystem);
+#endif
+                Destroy(_localEventSystems);
+            }
         }
 
 
