@@ -404,7 +404,6 @@ RectTransform:
   - {fileID: 5872632384875164094}
   - {fileID: 5872632386113127854}
   - {fileID: 5872632385645253390}
-  - {fileID: 5872632386349318867}
   m_Father: {fileID: 2707340425585151479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -546,6 +545,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   IsInitialized: 0
+  InitSpatialAwake: 1
 --- !u!1 &2707340425297590924
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2707340425585151479}
   - component: {fileID: 2035399258942445287}
+  - component: {fileID: 5817945646908909978}
   m_Layer: 0
   m_Name: '[DEBUG]'
   m_TagString: Untagged
@@ -703,11 +704,24 @@ MonoBehaviour:
   TextDebugInfo: {fileID: 4237765171024196191}
   InBoundary: 0
   IsNearbyBoundary: 0
+  AdvDebugMove: 0
   currentLoadedScenes: []
   lastLoadedScene: 0
   firstLoadedScene: 0
   nextScenesButton: {fileID: 5872632385645253425}
   previousScenesButton: {fileID: 5872632386113127853}
+--- !u!114 &5817945646908909978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2707340425585151473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25a6f7f10d75a940b6fb7b2e685a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4827135160839280621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -20}
+  m_AnchoredPosition: {x: 100, y: -20}
   m_SizeDelta: {x: 600, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5872632384875164090
@@ -1720,74 +1734,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &5872632386349318868
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5872632386349318867}
-  - component: {fileID: 5872632386349318865}
-  - component: {fileID: 5872632386349318866}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5872632386349318867
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5872632386349318868}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2707340424562343233}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5872632386349318865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5872632386349318868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
---- !u!114 &5872632386349318866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5872632386349318868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!1 &6167566392550063528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +1937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6414007056594001999}
   - component: {fileID: 7071670656900007874}
+  - component: {fileID: 6323186152498614579}
   m_Layer: 0
   m_Name: '[Global Varonia]'
   m_TagString: Untagged
@@ -2032,29 +1979,42 @@ MonoBehaviour:
   LobbySceneName: 
   RigTag: 
   MainCamera: {fileID: 0}
-  OtherOffset: {fileID: 0}
   Rig: {fileID: 0}
-  IsOutArea: 0
-  HasWeaponTracking: 0
-  LostWeaponTrackingLongTime: 0
-  IsBadTracking: 0
+  OnInitialized:
+    m_PersistentCalls:
+      m_Calls: []
   OnStrangeTracking:
     m_PersistentCalls:
       m_Calls: []
   OnTrackingOk:
     m_PersistentCalls:
       m_Calls: []
+  IsBadTracking: 0
   OnPlayerLeaveArea:
     m_PersistentCalls:
       m_Calls: []
   OnPlayerEnterArea:
     m_PersistentCalls:
       m_Calls: []
-  OnInitialized:
+  IsOutArea: 0
+  OnStartGame:
     m_PersistentCalls:
       m_Calls: []
   VBO_Version: 
   Addon: []
+--- !u!114 &6323186152498614579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318715354740786102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99176b57a86ef4547ab0bba871458a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initvrEnabled: 1
 --- !u!1 &8554962016219015493
 GameObject:
   m_ObjectHideFlags: 0

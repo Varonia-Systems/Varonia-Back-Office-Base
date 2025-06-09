@@ -11,11 +11,18 @@ public static class KeyboardHook
     private static readonly Dictionary<KeyCode, int> keyMap = new Dictionary<KeyCode, int>
     {
         { KeyCode.M, 0x4D },
+        { KeyCode.Tab, 0x09 },
         { KeyCode.F1, 0x70 },
         { KeyCode.F2, 0x71 },
         { KeyCode.F3, 0x72 },
+        { KeyCode.F4, 0x73 },  
+        { KeyCode.F5, 0x74 },   
+        { KeyCode.F6, 0x75 },   
         { KeyCode.F7, 0x76 },
         { KeyCode.F8, 0x77 },
+        { KeyCode.F9, 0x78 },   
+        { KeyCode.F10, 0x79 },  
+        { KeyCode.F11, 0x7A },  
         { KeyCode.F12, 0x7B },
         { KeyCode.KeypadPlus, 0x6B },
         { KeyCode.KeypadMinus, 0x6D },
@@ -32,7 +39,7 @@ public static class KeyboardHook
     private static Dictionary<KeyCode, bool> keyDownStates = new Dictionary<KeyCode, bool>();
     private static Dictionary<KeyCode, bool> keyPressedLastFrame = new Dictionary<KeyCode, bool>();
 
-    // Appeler au tout début de chaque Update() dans ton MonoBehaviour
+   
     public static void Update()
     {
         foreach (var key in keyMap.Keys)

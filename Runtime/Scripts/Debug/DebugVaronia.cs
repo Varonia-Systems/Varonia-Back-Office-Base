@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using uPLibrary.Networking.M2Mqtt;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+
 
 namespace VaroniaBackOffice
 {
@@ -54,9 +57,24 @@ namespace VaroniaBackOffice
         private bool Has_Boundary_Info;
 
         [HideInInspector]
-       public bool AdvDebugMove;
+        public bool AdvDebugMove;
 
 
+
+        private EventSystem _localEventSystems;
+        private InputSystemUIInputModule _localInputSystemEventSystem;
+        
+       
+        
+        void CheckEventSystems()
+        {
+            if (EventSystem.current == null)
+            {
+                _localEventSystems = gameObject.AddComponent<EventSystem>();
+                _localInputSystemEventSystem = gameObject.AddComponent<InputSystemUIInputModule>();
+            }
+            else if(_localEventSystems) {  Destroy(_localInputSystemEventSystem); Destroy(_localEventSystems);  }
+        }
 
 
         void DebugInfoUpdate()
@@ -126,29 +144,33 @@ namespace VaroniaBackOffice
             init = true;
 
 
-            if (GlobalServer == null)
-            {
-                var A = GameObject.Find(VG.ChangeSceneGameobject);
-                if (A != null) GlobalServer = A;
-            }
+            StartCoroutine(WhileGlobalServer());
 
 
 
         }
 
+
+        IEnumerator WhileGlobalServer()
+        {
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+
+                if (GlobalServer == null)
+                {
+                    var A = GameObject.Find(VG.ChangeSceneGameobject);
+                    if (A != null) GlobalServer = A;
+                }
+
+            }
+        }
+
+
+
         private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
         {
             DisplayScenes();
-
-            if (GlobalServer == null)
-            {
-                var A = GameObject.Find(VG.ChangeSceneGameobject);
-                if (A != null) GlobalServer = A;
-            }
-
-
-
-
             StartCoroutine(AfterLoad());
 
             if (Config.VaroniaConfig.DebugMode)
@@ -334,10 +356,6 @@ namespace VaroniaBackOffice
 
             if (!init) return;
 
-
-            KeyboardHook.Update();
-
-
             // Show or Hide Lite Debug Mod
             if (!Config.VaroniaConfig.HideLightDebug)
                 LightDebugCanvas.SetActive(true);
@@ -352,71 +370,75 @@ namespace VaroniaBackOffice
                 PanelDebugInfo.SetActive(false);
 
 
-            try
+
+            if (Application.isFocused)
             {
 
-            if (KeyboardHook.GetKeyDown(KeyCode.M)) // Minimize Game 
-            {
-                OnMinimizeButtonClick();
-            }
-
-
-            if (KeyboardHook.GetKeyDown(KeyCode.F1)) // Show advence Debug Mod
-               ShowDebug();
-
-            if (KeyboardHook.GetKeyDown(KeyCode.F7))
-                Show3DDebug();
-
-
-            if (KeyboardHook.GetKeyDown(KeyCode.F12))
-                AdvDebugMove = !AdvDebugMove;
-
-
-            if (AdvDebugMove)
-            {
-
-                int AddMul = 0;
-
-                if (KeyboardHook.GetKey(KeyCode.LeftShift) || KeyboardHook.GetKey(KeyCode.RightShift))
-                    AddMul += 4;
-
-
-                if (!KeyboardHook.GetKey(KeyCode.RightAlt))
+                try
                 {
-                    if (KeyboardHook.GetKey(KeyCode.UpArrow))
-                        VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (KeyboardHook.GetKey(KeyCode.DownArrow))
-                        VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
+                    if (KeyboardHook.GetKeyDown(KeyCode.M)) // Minimize Game 
+                    {
+                        OnMinimizeButtonClick();
+                    }
 
-                    if (KeyboardHook.GetKey(KeyCode.LeftArrow))
-                        VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (KeyboardHook.GetKey(KeyCode.RightArrow))
-                        VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
+                    if (KeyboardHook.GetKeyDown(KeyCode.F1)) // Show advence Debug Mod
+                        ShowDebug();
+
+                    if (KeyboardHook.GetKeyDown(KeyCode.F7))
+                        Show3DDebug();
+
+
+                    if (KeyboardHook.GetKeyDown(KeyCode.F12))
+                        AdvDebugMove = !AdvDebugMove;
+
+
+                    if (AdvDebugMove)
+                    {
+
+                        int AddMul = 0;
+
+                        if (KeyboardHook.GetKey(KeyCode.LeftShift) || KeyboardHook.GetKey(KeyCode.RightShift))
+                            AddMul += 4;
+
+
+                        if (!KeyboardHook.GetKey(KeyCode.RightAlt))
+                        {
+                            if (KeyboardHook.GetKey(KeyCode.UpArrow))
+                                VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
+
+                            if (KeyboardHook.GetKey(KeyCode.DownArrow))
+                                VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.forward * 0.1f) * (Time.deltaTime * (8 + AddMul));
+
+                            if (KeyboardHook.GetKey(KeyCode.LeftArrow))
+                                VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
+
+                            if (KeyboardHook.GetKey(KeyCode.RightArrow))
+                                VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.right * 0.1f) * (Time.deltaTime * (8 + AddMul));
+                        }
+                        else
+                        {
+                            if (KeyboardHook.GetKey(KeyCode.UpArrow))
+                                VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
+
+                            if (KeyboardHook.GetKey(KeyCode.DownArrow))
+                                VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
+
+                            if (KeyboardHook.GetKey(KeyCode.LeftArrow))
+                                VaroniaGlobal.VG.Rig.localEulerAngles -= (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
+
+                            if (KeyboardHook.GetKey(KeyCode.RightArrow))
+                                VaroniaGlobal.VG.Rig.localEulerAngles += (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
+                        }
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    if (KeyboardHook.GetKey(KeyCode.UpArrow))
-                        VaroniaGlobal.VG.Rig.position += (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (KeyboardHook.GetKey(KeyCode.DownArrow))
-                        VaroniaGlobal.VG.Rig.position -= (VaroniaGlobal.VG.MainCamera.transform.up * 0.1f) * (Time.deltaTime * (8 + AddMul));
 
-                    if (KeyboardHook.GetKey(KeyCode.LeftArrow))
-                        VaroniaGlobal.VG.Rig.localEulerAngles -= (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
-
-                    if (KeyboardHook.GetKey(KeyCode.RightArrow))
-                        VaroniaGlobal.VG.Rig.localEulerAngles += (new Vector3(0, 1, 0)) * (Time.deltaTime * (15 + (AddMul * 2)));
                 }
             }
-            }
-            catch (Exception)
-            {
-
-              
-            }
-
             DebugInfoUpdate();
 
 
@@ -491,6 +513,8 @@ namespace VaroniaBackOffice
 
         void ShowDebug()
         {
+            CheckEventSystems();
+            
             IsDebugMode = !IsDebugMode;
             Graphy.SetActive(IsDebugMode);
             DebugPanel.SetActive(IsDebugMode);

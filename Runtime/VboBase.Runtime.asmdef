@@ -5,7 +5,9 @@
         "NaughtyAttributes.Core",
         "NaughtyAttributes.Editor",
         "Unity.RenderPipelines.Universal.Runtime",
-        "Vbo.GameClass.Runtime"
+        "Vbo.GameClass.Runtime",
+        "Unity.XR.Management",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -14,6 +16,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.management",
+            "expression": "1.0.0",
+            "define": "HAS_XR_MANAGEMENT"
+        }
+    ],
     "noEngineReferences": false
 }

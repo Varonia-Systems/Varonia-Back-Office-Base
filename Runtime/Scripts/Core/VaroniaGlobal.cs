@@ -86,7 +86,7 @@ namespace VaroniaBackOffice
         private void LateUpdate()
         {
             Timegame_.dateTime = DateTime.UtcNow;
-            Timegame_.Time = Time.time;
+            Timegame_.Time = Time.time; 
         }
 
 
