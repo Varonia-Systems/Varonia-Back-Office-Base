@@ -1,7 +1,9 @@
 
 
 using UnityEngine;
+#if HAS_XR_MANAGEMENT
 using UnityEngine.XR.Management;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
