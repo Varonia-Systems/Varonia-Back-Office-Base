@@ -10,8 +10,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using uPLibrary.Networking.M2Mqtt;
 using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem.UI;
-
+#endif
 
 namespace VaroniaBackOffice
 {
@@ -62,8 +63,9 @@ namespace VaroniaBackOffice
 
 
         private EventSystem _localEventSystems;
+#if ENABLE_INPUT_SYSTEM
         private InputSystemUIInputModule _localInputSystemEventSystem;
-        
+#endif
        
         
         void CheckEventSystems()
@@ -71,7 +73,9 @@ namespace VaroniaBackOffice
             if (EventSystem.current == null)
             {
                 _localEventSystems = gameObject.AddComponent<EventSystem>();
+#if ENABLE_INPUT_SYSTEM
                 _localInputSystemEventSystem = gameObject.AddComponent<InputSystemUIInputModule>();
+                #endif
             }
             else if(_localEventSystems) {  Destroy(_localInputSystemEventSystem); Destroy(_localEventSystems);  }
         }
