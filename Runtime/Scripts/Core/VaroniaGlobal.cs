@@ -38,7 +38,7 @@ namespace VaroniaBackOffice
 
         [HideInInspector]
         public Camera MainCamera;
-
+            
     
         [HideInInspector]
         public Transform Rig;
@@ -80,8 +80,7 @@ namespace VaroniaBackOffice
         public string VBO_Version = "";
 
 
-        [InfoBox("Add Addons Prefabs here", EInfoBoxType.Normal)]
-        public List<Addon> Addon;
+   
 
         private void LateUpdate()
         {
@@ -115,13 +114,7 @@ namespace VaroniaBackOffice
             else
                 Screen.fullScreen = true;
 
-
-
-
-
-
-            yield return StartCoroutine(LoadAddons());
-
+            
 
             OnInitialized.Invoke();
         }
@@ -130,17 +123,7 @@ namespace VaroniaBackOffice
 
 
 
-        private IEnumerator LoadAddons()
-        {
-            foreach (var item in Addon)
-            {
-                var A = Instantiate(item, this.transform);
-                A.name = A.name.Replace("(Clone)", "");
-                yield return null;
-            }
 
-            yield return new WaitForFixedUpdate();
-        }
 
 
 

@@ -6,6 +6,8 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+
 namespace VaroniaBackOffice
 {
 
@@ -66,6 +68,7 @@ namespace VaroniaBackOffice
             string GC_fdp = ""; // Override content of the file
 
 
+          
             if (File.Exists(VaroniaFolder_Path + "/GlobalConfig.fdp")) // Search File Data Package
             {
                 Debug.Log("Read FDP GlobalConfig");
@@ -79,11 +82,32 @@ namespace VaroniaBackOffice
             if (!File.Exists(VaroniaFolder_Path + "/GlobalConfig.json")) // If GlobalConfig.json Don't Exist Create File
                 CreateBaseGlobalConfig();
 
+#if HAS_MultiplayerPlayMode && UNITY_EDITOR
+            string MP_Tag = "";
+            string[] AllTags = Unity.Multiplayer.Playmode.CurrentPlayer.ReadOnlyTags();
+            if (AllTags.Length > 0)
+                MP_Tag=AllTags[0];
 
+            if (File.Exists(VaroniaFolder_Path + "/GlobalConfig_"+ MP_Tag + ".json"))
+            {
+                using (StreamReader sr = new StreamReader(VaroniaFolder_Path + "/GlobalConfig_" + MP_Tag + ".json"))
+                {
+                    GC = sr.ReadToEnd();
+                }
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader(VaroniaFolder_Path + "/GlobalConfig.json"))
+                {
+                    GC = sr.ReadToEnd();
+                }
+            }
+#else
             using (StreamReader sr = new StreamReader(VaroniaFolder_Path + "/GlobalConfig.json"))
             {
                 GC = sr.ReadToEnd();
             }
+#endif
 
             try
             {
@@ -164,11 +188,34 @@ namespace VaroniaBackOffice
                 GameConfig = gameconfig;
             }
 
+            
+            
+#if HAS_MultiplayerPlayMode && UNITY_EDITOR
+            string MP_Tag = "";
+            string[] AllTags = Unity.Multiplayer.Playmode.CurrentPlayer.ReadOnlyTags();
+            if (AllTags.Length > 0)
+                MP_Tag=AllTags[0];
+
+            if (File.Exists(GameFolder_Path + "/Config"+ MP_Tag + ".json"))
+            {
+                using (StreamReader sr = new StreamReader(GameFolder_Path + "/Config" + MP_Tag + ".json"))
+                {
+                    GC = sr.ReadToEnd();
+                }
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader(GameFolder_Path + "/Config.json"))
+                {
+                    GC = sr.ReadToEnd();
+                }
+            }
+#else
             using (StreamReader sr = new StreamReader(GameFolder_Path + "/Config.json"))
             {
                 GC = sr.ReadToEnd();
             }
-
+#endif
             try
             {
                 GameConfig = JsonMerger.MergeJson<GameConfig>(GC, GC_fdp);

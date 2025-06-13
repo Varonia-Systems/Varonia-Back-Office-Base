@@ -33,7 +33,8 @@ public static class KeyboardHook
         { KeyCode.RightArrow, 0x27 },
         { KeyCode.LeftShift, 0xA0 },
         { KeyCode.RightShift, 0xA1 },
-        { KeyCode.RightAlt, 0xA5 }
+        { KeyCode.RightAlt, 0xA5 },
+        { KeyCode.Escape, 0x1B }
     };
 
     private static Dictionary<KeyCode, bool> keyDownStates = new Dictionary<KeyCode, bool>();

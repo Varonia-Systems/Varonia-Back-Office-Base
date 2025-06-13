@@ -54,7 +54,7 @@ namespace VaroniaBackOffice
         void Update()
         {
 
-            if ( KeyboardHook.GetKeyDown(KeyCode.F11) )
+            if ( KeyboardHook.GetKeyDown(KeyCode.F11) && Application.isFocused )
             {
              
                 vrEnabled = !vrEnabled;

@@ -1937,6 +1937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6414007056594001999}
   - component: {fileID: 7071670656900007874}
+  - component: {fileID: 8834833714365035530}
   - component: {fileID: 6323186152498614579}
   m_Layer: 0
   m_Name: '[Global Varonia]'
@@ -2001,7 +2002,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   VBO_Version: 
-  Addon: []
+--- !u!114 &8834833714365035530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318715354740786102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eba693f3df64014b90e069686df6ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addons: []
 --- !u!114 &6323186152498614579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,6 +2028,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initvrEnabled: 1
+  vrEnabled: 1
+  onVRSwitch:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8554962016219015493
 GameObject:
   m_ObjectHideFlags: 0

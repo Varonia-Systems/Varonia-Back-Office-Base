@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class Addon : MonoBehaviour
+[System.Serializable]
+public class Addon 
 {
- 
+    public GameObject prefab;             
+    public ScriptableObject config; 
 }
