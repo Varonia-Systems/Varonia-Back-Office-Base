@@ -1,5 +1,5 @@
 
-#if UNITY_EDITOR
+
 using UnityEngine;
 #if HAS_XR_MANAGEMENT
 using UnityEngine.XR.Management;
@@ -120,5 +120,4 @@ namespace VaroniaBackOffice
         public bool initvrEnabled = true;
     }
 }
-#endif
 #endif
