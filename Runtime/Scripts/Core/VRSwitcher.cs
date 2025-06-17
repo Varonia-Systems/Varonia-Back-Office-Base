@@ -1,5 +1,5 @@
 
-
+#if UNITY_EDITOR
 using UnityEngine;
 #if HAS_XR_MANAGEMENT
 using UnityEngine.XR.Management;
@@ -16,7 +16,7 @@ namespace VaroniaBackOffice
 {
     public class VRSwitcher : MonoBehaviour
     {
-#if UNITY_EDITOR
+
 
 
 #if HAS_XR_MANAGEMENT
