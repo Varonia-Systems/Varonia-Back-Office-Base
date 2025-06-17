@@ -19,7 +19,7 @@ namespace VaroniaBackOffice
     public class VaroniaGlobal : MonoBehaviour
     {
         public static VaroniaGlobal VG;
-
+//
         [InfoBox("Fill in with the name of the GameObject that has the function to change the scene.", EInfoBoxType.Normal)]
         [Tooltip("Fill this with function Change Scene")]
         public string ChangeSceneGameobject;
