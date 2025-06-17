@@ -22,7 +22,6 @@ namespace VaroniaBackOffice
 
         [Header("Items")]
         public GameObject DebugPanel;
-        public GameObject Graphy;
         public Text SceneList;
         public GameObject FPS3D;
         public Text Latency;
@@ -526,7 +525,6 @@ namespace VaroniaBackOffice
             CheckEventSystems();
             
             IsDebugMode = !IsDebugMode;
-            Graphy.SetActive(IsDebugMode);
             DebugPanel.SetActive(IsDebugMode);
 
         }

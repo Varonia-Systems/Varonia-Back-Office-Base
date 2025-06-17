@@ -80,7 +80,7 @@ namespace VaroniaBackOffice
         public string VBO_Version = "";
 
 
-   
+        public static bool HideDebugCanvas;
 
         private void LateUpdate()
         {
