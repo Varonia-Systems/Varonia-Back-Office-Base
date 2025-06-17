@@ -21,7 +21,7 @@ namespace VaroniaBackOffice
 
         void OnEnable()
         {
-            logo = AssetDatabase.LoadAssetAtPath<Texture2D>(GetResourcePath() + "BackOfficeLogo.png");
+            logo = AssetDatabase.LoadAssetAtPath<Texture2D>(GetResourcePath() + "Logo.png");
         }
 
 

@@ -90,7 +90,7 @@ public class VaroniaAboutWindow : EditorWindow
                 }
             }
 
-            logo = AssetDatabase.LoadAssetAtPath<Texture2D>(GetResourcePath() + "BackOfficeLogo.png"); // charge le logo si présent
+            logo = AssetDatabase.LoadAssetAtPath<Texture2D>(GetResourcePath() + "Logo.png"); // charge le logo si présent
             EditorApplication.update -= Progress;
             Repaint();
         }
