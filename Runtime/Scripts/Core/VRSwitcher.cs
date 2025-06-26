@@ -31,6 +31,11 @@ namespace VaroniaBackOffice
          public UnityEvent onVRSwitch = new UnityEvent();
         void Awake()
         {
+            
+            #if !UNITY_EDITOR
+            initvrEnabled = true;
+#endif
+            
             vrEnabled = XRSettings.enabled;
 
             Debug.LogWarning("VR Enabled : " + vrEnabled);

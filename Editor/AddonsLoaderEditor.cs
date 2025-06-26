@@ -65,23 +65,48 @@ public class AddonsLoaderEditor : Editor
             EditorGUILayout.EndVertical();
         }
 
-        if (GUILayout.Button("Add All Addons"))
+        if (!Application.isPlaying)
         {
-            AddAllAddons((AddonsLoader)target);
+            if (GUILayout.Button("Add All Addons"))
+            {
+                AddAllAddons((AddonsLoader)target);
+            }
+
+            if (GUILayout.Button("Add Addon"))
+            {
+                addons.InsertArrayElementAtIndex(addons.arraySize);
+            }
+
+
+            if (GUILayout.Button("🔁 Refresh"))
+            {
+                RefreshAddons((AddonsLoader)target);
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Force Load Addon"))
+            {
+                AddonsLoader myScript = (AddonsLoader)target;
+
+                // Appelle la méthode avec un paramètre
+                myScript.LoadAddons();
+
+            }
         }
 
-        if (GUILayout.Button("Add Addon"))
-        {
-            addons.InsertArrayElementAtIndex(addons.arraySize);
-        }
+        GUILayout.Space(15);
+            
+        serializedObject.Update();
+            
+        SerializedProperty loadOnStartProperty = serializedObject.FindProperty("loadOnStart");
+        EditorGUILayout.PropertyField(loadOnStartProperty, true);
 
-        
-        if (GUILayout.Button("🔁 Refresh"))
-        {
-            RefreshAddons((AddonsLoader)target);
-        }
-        
+
         serializedObject.ApplyModifiedProperties();
+
+        
+        
     }
 
     private void AddAllAddons(AddonsLoader loader)

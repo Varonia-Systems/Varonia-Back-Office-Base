@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using VaroniaBackOffice;
 
@@ -7,13 +8,20 @@ public class AddonsLoader : MonoBehaviour
 {
     public List<Addon> addons = new List<Addon>();
 
+    [SerializeField]
+    public bool loadOnStart = true;
+    
+    
     void Start()
     {
+#if UNITY_EDITOR
+        if(loadOnStart)
+#endif
         GetComponent<VaroniaGlobal>().OnInitialized.AddListener(LoadAddons);
     }
     
-    
-      private void LoadAddons()
+  
+      public void LoadAddons()
       {
          foreach (var item in addons)
          {

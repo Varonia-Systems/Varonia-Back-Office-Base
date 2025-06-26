@@ -10,7 +10,7 @@ public class FpsUtility : MonoBehaviour
     private const int LOW_FPS_THRESHOLD = 40;
     private const int NORMAL_FPS_THRESHOLD = 60;
     private const float UPDATE_INTERVAL = 0.1f;
-    private const int MAX_HISTORY_SAMPLES = 600; // 60 secondes à 10 échantillons/sec
+    private const int MAX_HISTORY_SAMPLES = 300; // 30 secondes à 10 échantillons/sec
     
     private static int currentFps;
     private static List<int> fpsHistory = new List<int>();
