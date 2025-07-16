@@ -60,7 +60,7 @@ namespace VaroniaBackOffice
             
             var rect2 = GUILayoutUtility.GetRect(Screen.width - 38, 50, GUI.skin.box);
             if (GUI.Button(rect2,"🤔 Go Wiki For More Details",sexyButtonStyle))
-            { Application.OpenURL("https://varoniasystems.notion.site/backoffice?v=1d0ff92b37a181d58dbb000c443a2030"); }
+            { Application.OpenURL("https://varoniasystems.notion.site/varonia"); }
 
             
             GUILayout.Space(15);

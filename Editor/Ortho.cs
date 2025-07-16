@@ -137,15 +137,30 @@ namespace VaroniaBackOffice
                 GUI.backgroundColor = originalColor;
                 GUILayout.Space(10);
                 GUILayout.Label("Camera Settings", EditorStyles.boldLabel);
-
+                
                 CaptureCamera.orthographicSize = EditorGUILayout.IntField("Orthographic Size", (int)CaptureCamera.orthographicSize);
-                CaptureCamera.transform.position = new Vector3(0, EditorGUILayout.FloatField("Height", CaptureCamera.transform.position.y), 0);
+                var B = EditorGUILayout.FloatField("Height", CaptureCamera.transform.position.y);
+                
+              
 
 #if VBO_AutoBuild
                 GameMode = EditorGUILayout.IntField("GameMode", GameMode);
 #endif
 
-                GUILayout.Space(10);
+                
+                GUI.backgroundColor = new Color(0.1f, 0.7f, 0.8f); // vert
+                
+                GUILayout.Space(30);
+                
+                GUILayout.Label("Offset", EditorStyles.boldLabel);
+                EditorGUILayout.HelpBox("If the center of your level is not at coordinate zero, adjust the camera's position accordingly.", MessageType.Info);
+                
+                var A = EditorGUILayout.Vector2Field("", new Vector2(CaptureCamera.transform.position.x,CaptureCamera.transform.position.z));
+                CaptureCamera.transform.position = new Vector3(A.x, B, A.y);
+                
+                
+                GUILayout.Space(20);
+                
                 GUI.backgroundColor = new Color(0.1f, 0.7f, 0.1f); // vert
                 if (GUILayout.Button("📸 Capture Ortho View", buttonStyle))
                 {
@@ -159,7 +174,11 @@ namespace VaroniaBackOffice
                         CaptureCamera = null;
                     }
                 }
-
+                
+                
+            
+                
+           
 
                 //GUILayout.Space(10);
                 //GUI.backgroundColor = new Color(1f, 0.3f, 0.3f); // rouge

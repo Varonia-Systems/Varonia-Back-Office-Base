@@ -17,7 +17,7 @@ public class AddonsLoaderEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-
+        GUI.backgroundColor = new Color(0.7f, 0.7f, 1f); 
         EditorGUILayout.LabelField("Addons", EditorStyles.boldLabel);
 
         for (int i = 0; i < addons.arraySize; i++)
@@ -29,9 +29,23 @@ public class AddonsLoaderEditor : Editor
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(prefabProp);
+            
+           
+            
             if (GUILayout.Button("-", GUILayout.Width(25)))
             {
-                addons.DeleteArrayElementAtIndex(i);
+                AddonsLoader loader = (AddonsLoader)target;
+                if(loader.addons[i].prefab != null)
+                Debug.Log("Delete Addon " +loader.addons[i].prefab.name );
+                else 
+                Debug.Log("Delete Addon ");
+                // Supprimer directement l'élément dans la liste
+                loader.addons.RemoveAt(i);
+
+                // Marquer le script comme sale pour sauvegarde
+                EditorUtility.SetDirty(loader);
+
+             
                 break;
             }
             EditorGUILayout.EndHorizontal();
@@ -65,19 +79,28 @@ public class AddonsLoaderEditor : Editor
             EditorGUILayout.EndVertical();
         }
 
+        GUILayout.Space(40);
+        
         if (!Application.isPlaying)
         {
+            GUI.backgroundColor = new Color(0.3f, 1f, 0.5f); 
             if (GUILayout.Button("Add All Addons"))
             {
                 AddAllAddons((AddonsLoader)target);
             }
 
+            GUI.backgroundColor = new Color(1f, 0.7f, 0.5f); 
             if (GUILayout.Button("Add Addon"))
             {
-                addons.InsertArrayElementAtIndex(addons.arraySize);
+                AddonsLoader loader = (AddonsLoader)target;
+                loader.addons.Add(new Addon());
+                
+                
+                EditorUtility.SetDirty(loader);
+
             }
 
-
+            GUI.backgroundColor = new Color(0f, 0.5f, 0.5f); 
             if (GUILayout.Button("🔁 Refresh"))
             {
                 RefreshAddons((AddonsLoader)target);
@@ -85,6 +108,7 @@ public class AddonsLoaderEditor : Editor
         }
         else
         {
+            GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f); 
             if (GUILayout.Button("Force Load Addon"))
             {
                 AddonsLoader myScript = (AddonsLoader)target;
@@ -99,6 +123,8 @@ public class AddonsLoaderEditor : Editor
             
         serializedObject.Update();
             
+        GUI.backgroundColor = new Color(1f, 1f, 1f); 
+        
         SerializedProperty loadOnStartProperty = serializedObject.FindProperty("loadOnStart");
         EditorGUILayout.PropertyField(loadOnStartProperty, true);
 

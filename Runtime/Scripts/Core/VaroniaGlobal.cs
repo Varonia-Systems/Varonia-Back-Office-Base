@@ -89,6 +89,11 @@ namespace VaroniaBackOffice
         }
 
 
+        private void Awake()
+        {
+            VG = this;
+        }
+
         private IEnumerator Start()
         {
             Timegame_ = new Timegame();
@@ -96,8 +101,7 @@ namespace VaroniaBackOffice
 
             DontDestroyOnLoad(gameObject);
 
-            VG = this;
-
+           
             if (File.Exists(Application.streamingAssetsPath + "/VBO_Version.txt"))
                 VBO_Version = File.ReadAllText(Application.streamingAssetsPath + "/VBO_Version.txt");
 
