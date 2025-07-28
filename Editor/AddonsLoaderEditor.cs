@@ -195,9 +195,13 @@ public class AddonsLoaderEditor : Editor
         {
             _cachedScriptableTypes = AppDomain.CurrentDomain
                 .GetAssemblies()
-                .SelectMany(a => a.GetTypes())
+                .SelectMany(a =>
+                {
+                    try { return a.GetTypes(); } catch { return Array.Empty<Type>(); }
+                })
                 .Where(t => typeof(ScriptableObject).IsAssignableFrom(t))
-                .ToDictionary(t => t.FullName, t => t);
+                .GroupBy(t => t.FullName)
+                .ToDictionary(g => g.Key, g => g.First());
         }
 
         string cleanName = prefab.name
