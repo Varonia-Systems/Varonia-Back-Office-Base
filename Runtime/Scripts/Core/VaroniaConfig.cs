@@ -42,7 +42,7 @@ namespace VaroniaBackOffice
    FOCUS3_VBS_HK416 = 101,
 
    PICO_VSVR_VaroniaGun = 70,
-
+   PICO_VSVR_Striker = 80,
 
 #endif
 

@@ -16,13 +16,15 @@ public class AddonsLoaderEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if(Application.isPlaying)
-        return;
         
-        serializedObject.Update();
         
-      
+    
         
+        if (!Application.isPlaying)
+        {
+        
+            serializedObject.Update();
+            
         GUI.backgroundColor = new Color(0.7f, 0.7f, 1f); 
         EditorGUILayout.LabelField("Addons", EditorStyles.boldLabel);
 
@@ -103,8 +105,7 @@ public class AddonsLoaderEditor : Editor
 
         GUILayout.Space(40);
         
-        if (!Application.isPlaying)
-        {
+       
             GUI.backgroundColor = new Color(0.3f, 1f, 0.5f); 
             if (GUILayout.Button("Add All Addons"))
             {
@@ -134,10 +135,16 @@ public class AddonsLoaderEditor : Editor
                 RefreshAddons((AddonsLoader)target);
             }
         }
-        else
+        else if(!((AddonsLoader)target).loadOnStart)
         {
-            GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f); 
-            if (GUILayout.Button("Force Load Addon"))
+           
+            GUI.backgroundColor = new Color(1f, 0f, 0.2f);
+           
+            GUIStyle boldButtonStyle = new GUIStyle(GUI.skin.button);
+            boldButtonStyle.fontStyle = FontStyle.Bold;
+            boldButtonStyle.fontSize = 24;
+            
+            if (GUILayout.Button("Force Load Addon",boldButtonStyle, GUILayout.Height(50), GUILayout.ExpandWidth(true)))
             {
                 AddonsLoader myScript = (AddonsLoader)target;
 
@@ -147,20 +154,23 @@ public class AddonsLoaderEditor : Editor
             }
         }
 
-        GUILayout.Space(15);
-            
-        serializedObject.Update();
-            
-        GUI.backgroundColor = new Color(1f, 1f, 1f); 
-        
-        SerializedProperty loadOnStartProperty = serializedObject.FindProperty("loadOnStart");
-        EditorGUILayout.PropertyField(loadOnStartProperty, true);
+
+        if (!Application.isPlaying)
+        {
+            GUILayout.Space(15);
+
+            serializedObject.Update();
+
+            GUI.backgroundColor = new Color(1f, 1f, 1f);
+
+            SerializedProperty loadOnStartProperty = serializedObject.FindProperty("loadOnStart");
+            EditorGUILayout.PropertyField(loadOnStartProperty, true);
 
 
-        serializedObject.ApplyModifiedProperties();
+            serializedObject.ApplyModifiedProperties();
+        }
 
-        
-        
+
     }
 
    private void AddAllAddons(AddonsLoader loader)

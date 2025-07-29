@@ -25,8 +25,8 @@ namespace VaroniaBackOffice
         [InfoBox("The \"init VR on startup\" parameter is only useful in the editor", EInfoBoxType.Warning)]
         public bool initvrEnabled = true;
         
-        [HideInInspector]
-         public bool vrEnabled = true;
+ 
+         public static bool vrEnabled = true;
 
          public UnityEvent onVRSwitch = new UnityEvent();
         void Awake()
@@ -76,9 +76,10 @@ namespace VaroniaBackOffice
         
         public List<T> GetAllComponentsOfType<T>() where T : Component
         {
-            return FindObjectsOfType<T>(true).ToList();
+            return Resources.FindObjectsOfTypeAll<T>()
+                .Where(c => c.gameObject.hideFlags == HideFlags.None)
+                .ToList();
         }
-
         
         IEnumerator StartXR()
         {
@@ -96,6 +97,7 @@ namespace VaroniaBackOffice
           
             GetAllComponentsOfType<PosMul>().ForEach(l=> l.enabled = true);
           
+             
 
         }
 
