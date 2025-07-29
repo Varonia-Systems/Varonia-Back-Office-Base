@@ -6,6 +6,7 @@ using VaroniaBackOffice;
 
 public class AddonsLoader : MonoBehaviour
 {
+    [SerializeField]
     public List<Addon> addons = new List<Addon>();
 
     [SerializeField]

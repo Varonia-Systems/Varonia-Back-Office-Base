@@ -25,7 +25,7 @@ namespace VaroniaBackOffice
         [InfoBox("The \"init VR on startup\" parameter is only useful in the editor", EInfoBoxType.Warning)]
         public bool initvrEnabled = true;
         
-        
+        [HideInInspector]
          public bool vrEnabled = true;
 
          public UnityEvent onVRSwitch = new UnityEvent();
