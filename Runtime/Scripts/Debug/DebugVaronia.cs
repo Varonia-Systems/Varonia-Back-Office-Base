@@ -360,7 +360,7 @@ namespace VaroniaBackOffice
             GlobalServer.SendMessage(VG.FunctionName_ChangeScene, SceneName);
         }
 
-        void Update()
+        public void Update()
         {
 
             if (!init) return;
