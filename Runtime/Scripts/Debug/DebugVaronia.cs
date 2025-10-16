@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using uPLibrary.Networking.M2Mqtt;
@@ -61,9 +62,16 @@ namespace VaroniaBackOffice
 
 
 
+
+        public UnityEvent<bool> OnDebugChange = new UnityEvent<bool>();
+        
+        
+
         private EventSystem _localEventSystems;
 #if ENABLE_INPUT_SYSTEM
         private InputSystemUIInputModule _localInputSystemEventSystem;
+#else
+        private StandaloneInputModule   _localStandaloneInputModule;
 #endif
        
         
@@ -73,13 +81,18 @@ namespace VaroniaBackOffice
             {
                 _localEventSystems = gameObject.AddComponent<EventSystem>();
 #if ENABLE_INPUT_SYSTEM
+             
                 _localInputSystemEventSystem = gameObject.AddComponent<InputSystemUIInputModule>();
+#else
+                _localStandaloneInputModule = gameObject.AddComponent<StandaloneInputModule>();
                 #endif
             }
             else if (_localEventSystems)
             {
 #if ENABLE_INPUT_SYSTEM
                 Destroy(_localInputSystemEventSystem);
+#else
+                Destroy(_localStandaloneInputModule);
 #endif
                 Destroy(_localEventSystems);
             }
@@ -525,6 +538,9 @@ namespace VaroniaBackOffice
             CheckEventSystems();
             
             IsDebugMode = !IsDebugMode;
+            
+            OnDebugChange.Invoke(IsDebugMode);
+            
             DebugPanel.SetActive(IsDebugMode);
 
         }
