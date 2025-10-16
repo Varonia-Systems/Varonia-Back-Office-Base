@@ -62,9 +62,9 @@ namespace VaroniaBackOffice
 
 
 
-
-        public UnityEvent<bool> OnDebugChange = new UnityEvent<bool>();
-        
+#if UNITY_2020_1_OR_NEWER
+       public  UnityEvent<bool> OnDebugChange = new UnityEvent<bool>();
+#endif
         
 
         private EventSystem _localEventSystems;
@@ -539,7 +539,9 @@ namespace VaroniaBackOffice
             
             IsDebugMode = !IsDebugMode;
             
+           #if UNITY_2020_1_OR_NEWER
             OnDebugChange.Invoke(IsDebugMode);
+            #endif
             
             DebugPanel.SetActive(IsDebugMode);
 

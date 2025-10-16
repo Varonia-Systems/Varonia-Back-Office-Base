@@ -1,6 +1,6 @@
 {
   "name": "com.varonia.vbobase",
-  "version": "7.5.12",
+  "version": "7.5.13",
   "displayName": "Varonia Back Office",
   "description": "Base package for integration with the Varonia platform",
   "unity": "2019.4",
